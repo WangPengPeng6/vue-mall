@@ -1,10 +1,12 @@
 <template>
-  <div class="home">这是首页</div>
+  <div class="main">
+    这是我的
+    </div>
 </template>
 
 <script>
 export default {
-  name: "HomeView",
+  name: "MainView",
 };
 </script>
 

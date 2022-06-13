@@ -1,10 +1,10 @@
 <template>
-  <div class="home">这是首页</div>
+  <div>这是底部tabber</div>
 </template>
 
 <script>
 export default {
-  name: "HomeView",
+  name: "Tabber",
 };
 </script>
 
