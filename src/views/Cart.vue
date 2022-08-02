@@ -121,9 +121,6 @@ export default {
                         click:true,
                         })
                     })
-                }else{
-                    //未登录状态
-						Toast('请先登录');
                 }
         },
         //点击编辑||完成

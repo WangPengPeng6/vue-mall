@@ -524,7 +524,6 @@ router.post('/api/login', function (req, res, next) {
     userTel: req.body.userTel,
     userPwd: req.body.userPwd
   }
-
   //生成token
   let payload = { tel: params.userTel } //用户信息
   let secret = 'liyuaiwu' //口令
@@ -534,9 +533,6 @@ router.post('/api/login', function (req, res, next) {
 
   //查询用户手机号是否存在
   usersList.findOne({ tel: params.userTel }, function (err, results) {
-    //记录id
-    let id = results._id
-    let ID = mongoose.Types.ObjectId(id);
     if (!err) {
       if (!results) {
         res.send({
@@ -547,6 +543,9 @@ router.post('/api/login', function (req, res, next) {
           }
         })
       } else {
+        // 记录id
+        let id = results._id
+        let ID = mongoose.Types.ObjectId(id);
         //判断账号密码
         if (results.pwd === params.userPwd) {
           //手机号跟密码都正确
@@ -560,7 +559,6 @@ router.post('/api/login', function (req, res, next) {
               }
             })
           })
-
         }
         else {
           //密码不对
@@ -568,13 +566,13 @@ router.post('/api/login', function (req, res, next) {
             code: 302,
             data: {
               success: false,
-              msg: '密码不正确'
+              msg: '账号或密码不正确'
             }
           })
         }
-
       }
     }
+
   })
 })
 
@@ -622,8 +620,6 @@ router.post('/api/addUser', function (req, res, next) {
   }
   //查询用户是否存在
   usersList.findOne({ tel: params.userTel }, function (error, results) {
-    let id = results._id
-    let ID = mongoose.Types.ObjectId(id);
     //生成token
     let payload = { tel: params.userTel } //用户信息
     let secret = 'liyuaiwu' //口令
@@ -644,6 +640,8 @@ router.post('/api/addUser', function (req, res, next) {
           })
         })
       } else {
+        let id = results._id
+        let ID = mongoose.Types.ObjectId(id);
         //用户存在
         usersList.updateOne({ _id: ID }, { $set: { token: token } }, function (e, r) {
           res.send({
@@ -657,7 +655,6 @@ router.post('/api/addUser', function (req, res, next) {
         })
       }
     }
-
   })
 })
 
@@ -667,16 +664,14 @@ router.post('/api/register', function (req, res, next) {
     userTel: req.body.phone,
     userPwd: req.body.pwd
   }
+  //生成token
+  let payload = { tel: params.userTel } //用户信息
+  let secret = 'liyuaiwu' //口令
+  let token = jwt.sign(payload, secret, {
+    expiresIn: 604800
+  })
   //查询用户
   usersList.findOne({ tel: params.userTel }, function (error, results) {
-    let id = results._id
-    let ID = mongoose.Types.ObjectId(id);
-    //生成token
-    let payload = { tel: params.userTel } //用户信息
-    let secret = 'liyuaiwu' //口令
-    let token = jwt.sign(payload, secret, {
-      expiresIn: 604800
-    })
     if (!error) {
       if (!results) {
         usersList.create({ "tel": params.userTel, "pwd": params.userPwd, "nickName": params.userTel, "imgUrl": "/images/default.jpg", "token": token }, function (err, result) {
@@ -690,13 +685,15 @@ router.post('/api/register', function (req, res, next) {
           })
         })
       } else {
+        let id = results._id
+        let ID = mongoose.Types.ObjectId(id);
         //用户存在
         usersList.updateOne({ _id: ID }, { $set: { token: token } }, function (e, r) {
           res.send({
             code: 200,
             data: {
               success: true,
-              msg: '登录成功',
+              msg: '账号已存在，请登录',
               data: results
             }
           })

@@ -129,7 +129,9 @@ export default{
 					pwd:this.userPwd
 				}
 			}).then(res=>{
-				console.log( res );
+				Toast(res.msg)
+				this.$router.push('/userLogin')
+				
 			})
 		}
 	}

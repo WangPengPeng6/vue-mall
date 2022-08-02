@@ -1,4 +1,4 @@
-# vue-mall
+# vue-mall   这是一个vue2+node.js+mongoDb的项目
 
 ## Project setup
 ```

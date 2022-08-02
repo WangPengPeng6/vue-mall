@@ -27,8 +27,8 @@ export default {
         //如果token过期重新登录
         return axios(options).then(v => {
             let data = v.data.data
-
-            if (data.code == 1000) {
+            let code = v.data.code
+            if (code == 1000) {
                 Indicator.close();
                 return router.push('/login');
             }

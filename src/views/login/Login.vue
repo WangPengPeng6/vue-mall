@@ -35,7 +35,7 @@ export default{
 			userTel:'',
 			userCode:'',
 			disabled:false,
-			codeNum:6,
+			codeNum:60,
 			codeMsg:'获取短信验证码',
 			code:'',
 			//验证规则
@@ -78,10 +78,10 @@ export default{
 			//判断什么时候停止
 			setTimeout(()=>{
 				clearInterval(timer)
-				this.codeNum=6
+				this.codeNum=60
 				this.disabled=false
 				this.codeMsg='获取短信验证码'
-			},6000)
+			},60000)
 		},
 		goUserLogin(){
 			this.$router.push('/userLogin');

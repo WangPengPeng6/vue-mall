@@ -60,7 +60,6 @@ export default {
   },
   created() {
     this.getData()
-    
   },
   mounted() {
      
@@ -69,6 +68,23 @@ export default {
     changeTab(index){
      this.clickData(index)
     },
+    // getData(){
+    //   request.$axios({
+    //     url: '/api/index_list/0/data/1'
+    //   }).then(res=>{
+    //     console.log(res);
+    //     this.topBar=Object.freeze(res.topBar);
+    //     this.newData=Object.freeze(res.data);
+    //   });
+    //   //当所有DOM节点加载完毕后执行 $nextTick
+    //     this.$nextTick(()=>{
+    //       new BetterScroll('.wrapper', {
+    //       movable: true,
+    //       zoom: true,
+    //       click:true
+    //     })
+    //   })
+    // },
     async getData(){
       let res= await request.$axios({
         url: '/api/index_list/0/data/1'
